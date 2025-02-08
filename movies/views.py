@@ -60,7 +60,7 @@ def get_movie_details(movie_id):
             'id': movie['id'],
             'name': movie['title'],
             'description': movie['overview'],
-            'poster': f"https://image.tmdb.org/t/p/w500{movie['poster_path']}",
+            'image': f"https://image.tmdb.org/t/p/w500{movie['poster_path']}",
             'price': movie['price'],
         }
     return None
