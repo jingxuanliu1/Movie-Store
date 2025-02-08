@@ -43,7 +43,7 @@ def get_movies(search_term=None):
                 'name': movie_data['title'],
                 'price': calculate_price_based_on_popularity(movie_data['popularity']),
                 'description': movie_data['overview'],
-                'image': f"https://image.tmdb.org/t/p/w500{movie_data['poster_path']}"
+                'image': f"https://image.tmdb.org/t/p/w500{movie_data['poster_path']}" if movie_data['poster_path'] else "https://via.placeholder.com/500x750?text=No+Poster+Available",
                 }
             )
             movies.append(movie)
