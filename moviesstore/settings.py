@@ -27,6 +27,18 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+#EMAIL SETTING
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'odproject2340@gmail.com'
+EMAIL_HOST_PASSWORD = 'leqj juld kwlr ajve'
+DEFAULT_FROM_EMAIL = 'GT Movie Store Team <odproject2340@gmail.com>'
+
 
 # Application definition
 
