@@ -28,7 +28,7 @@
       {% for movie in template_data.movies %}
       <div class="col-md-4 col-lg-3 mb-2">
         <div class="p-2 card align-items-center pt-4">
-          <img src="{{ movie.poster }}" class="card-img-top rounded img-card-200" alt="{{ movie.name }}">
+          <img src="{{ movie.image }}" class="card-img-top rounded img-card-200" alt="{{ movie.name }}">
           <div class="card-body text-center">
             <a href="{% url 'movies.show' id=movie.id %}" class="btn bg-dark text-white">
               {{ movie.name }}

@@ -10,8 +10,20 @@ load_dotenv()
 TMDB_API_KEY = os.getenv('TMDB_API_KEY')
 
 
+
+
 def get_movies(search_term=None):
     base_url = "https://api.themoviedb.org/3"
+
+    def calculate_price_based_on_popularity(popularity):
+        if popularity > 100:
+            return 20
+        elif popularity > 50:
+            return 15
+        elif popularity > 20:
+            return 10
+        else:
+            return 5
 
     if search_term:
         url = f"{base_url}/search/movie?api_key={TMDB_API_KEY}&language=en-US&query={search_term}"
@@ -22,17 +34,19 @@ def get_movies(search_term=None):
     if response.status_code == 200:
         data = response.json()
 
-        movies = [
-            {
-                'id': movie['id'],
-                'name': movie['title'],
-                'price': 10,
-                'description': movie['overview'],
-                'poster': f"https://image.tmdb.org/t/p/w500{movie['poster_path']}"
-            }
-            for movie in data.get('results', [])
-        ]
-
+        movies = []
+        for movie_data in data.get('results', []):
+            movie, created = Movie.objects.get_or_create(
+                id=movie_data['id'],
+                defaults={
+                'id': movie_data['id'],
+                'name': movie_data['title'],
+                'price': calculate_price_based_on_popularity(movie_data['popularity']),
+                'description': movie_data['overview'],
+                'image': f"https://image.tmdb.org/t/p/w500{movie_data['poster_path']}"
+                }
+            )
+            movies.append(movie)
         return movies
     else:
         return []
@@ -46,7 +60,8 @@ def get_movie_details(movie_id):
             'id': movie['id'],
             'name': movie['title'],
             'description': movie['overview'],
-            'poster': f"https://image.tmdb.org/t/p/w500{movie['poster_path']}"
+            'poster': f"https://image.tmdb.org/t/p/w500{movie['poster_path']}",
+            'price': movie['price'],
         }
     return None
 
@@ -60,16 +75,16 @@ def index(request):
     return render(request, 'movies/index.html', {'template_data':template_data})
 
 def show(request, id):
-    movie = get_movie_details(id)
-    if not movie:
-        return render(request, 'movies/show.html', {'template_data': template_data})
-    reviews = Review.objects.filter(movie_id=id)
+    movie = get_object_or_404(Movie, id=id)
+    reviews = Review.objects.filter(movie=movie)
 
-    template_data = {
-        'title': movie['name'],
-        'movie': movie,
-        'reviews': reviews,
-    }
+    template_data = {}
+    template_data['title'] = movie.name
+    template_data['movie'] = movie
+    template_data['reviews'] = reviews
+    template_data['price'] = movie.price
+    template_data['description'] = movie.description
+    template_data['image'] = movie.image
     return render(request, 'movies/show.html', {'template_data': template_data})
 
 @login_required
