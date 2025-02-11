@@ -32,10 +32,18 @@
   color: #fff;
 }
 .img-card-200 {
-  width: fit-content;
-  max-height: 200px;
+width: auto;
+  max-width: 200px;
+  height: auto;
+  max-height: 300px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
 }
 .img-card-400 {
-  width: fit-content;
-  max-height: 400px;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  max-height: 650px;
+  object-fit: contain;
 }
