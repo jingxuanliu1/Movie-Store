@@ -34,6 +34,17 @@ def clear(request):
     request.session['cart'] = {}
     return redirect('cart.index')
 
+def remove(request, id):
+    get_object_or_404(Movie, id=id)  # Ensure the movie exists
+    cart = request.session.get('cart', {})
+
+    if str(id) in cart:  # Check if the movie is in the cart
+        del cart[str(id)]  # Remove the movie from the cart
+        request.session['cart'] = cart  # Save the updated cart
+        request.session.modified = True  # Ensure session updates are saved
+
+    return redirect('cart.index')
+
 @login_required
 def purchase(request):
     cart = request.session.get('cart', {})
