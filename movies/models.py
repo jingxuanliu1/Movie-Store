@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 class Movie(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255)
-    price = models.IntegerField()
+    price = models.DecimalField(max_digits=5, decimal_places=2)
     description = models.TextField()
     image = models.URLField(max_length=500, blank=True)
 

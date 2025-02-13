@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-
+from decimal import Decimal
 import requests
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Movie, Review
@@ -17,13 +17,13 @@ def get_movies(search_term=None):
 
     def calculate_price_based_on_popularity(popularity):
         if popularity > 100:
-            return 20
+            return Decimal('19.99')
         elif popularity > 50:
-            return 15
+            return Decimal('14.99')
         elif popularity > 20:
-            return 10
+            return Decimal('9.99')
         else:
-            return 5
+            return Decimal('4.99')
 
     if search_term:
         url = f"{base_url}/search/movie?api_key={TMDB_API_KEY}&language=en-US&query={search_term}"
