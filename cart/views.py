@@ -39,10 +39,13 @@ def remove(request, id):
     cart = request.session.get('cart', {})
 
     if str(id) in cart:  # Check if the movie is in the cart
-        del cart[str(id)]  # Remove the movie from the cart
+        quantity = int(cart[str(id)])  # Get the current quantity
+        if quantity > 1:
+            cart[str(id)] = str(quantity - 1)  # Decrease the quantity by 1
+        else:
+            del cart[str(id)]  # Remove the movie entirely if quantity is 1
         request.session['cart'] = cart  # Save the updated cart
         request.session.modified = True  # Ensure session updates are saved
-
     return redirect('cart.index')
 
 @login_required
