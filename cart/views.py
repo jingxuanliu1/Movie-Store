@@ -95,7 +95,11 @@ def index(request):
 def add(request, id):
     get_object_or_404(Movie, id=id)
     cart = request.session.get('cart', {})
-    cart[id] = request.POST['quantity']
+    quantity = int(request.POST['quantity'])
+    if str(id) in cart:
+        cart[str(id)] = str(int(cart[str(id)]) + quantity)
+    else:
+        cart[str(id)] = str(quantity)
     request.session['cart'] = cart
     return redirect('cart.index')
 
