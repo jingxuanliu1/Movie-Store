@@ -51,20 +51,6 @@ def get_movies(search_term=None):
     else:
         return []
 
-def get_movie_details(movie_id):
-    url = f"https://api.themoviedb.org/3/movie/{movie_id}?api_key={TMDB_API_KEY}&language=en-US"
-    response = requests.get(url)
-    if response.status_code == 200:
-        movie = response.json()
-        return {
-            'id': movie['id'],
-            'name': movie['title'],
-            'description': movie['overview'],
-            'image': f"https://image.tmdb.org/t/p/w500{movie['poster_path']}",
-            'price': movie['price'],
-        }
-    return None
-
 def index(request):
     search_term = request.GET.get('search')
 
