@@ -47,3 +47,15 @@ width: auto;
   max-height: 650px;
   object-fit: contain;
 }
+.slogan {
+  font-weight: bold;
+  color: #8e2ff4;
+  font-size: 2.2rem;
+  font-family: 'Dancing Script', cursive;
+}
+.slogan-black {
+  font-weight: bold;
+  color: black;
+  font-size: 2rem;
+  font-family: 'Comfortaa', sans-serif;
+}
