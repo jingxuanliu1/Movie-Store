@@ -16,6 +16,8 @@ def get_movies(search_term=None):
     base_url = "https://api.themoviedb.org/3"
 
     def calculate_price_based_on_popularity(popularity):
+        if popularity is None:
+            return 0
         if popularity > 100:
             return Decimal('19.99')
         elif popularity > 50:
@@ -36,12 +38,13 @@ def get_movies(search_term=None):
 
         movies = []
         for movie_data in data.get('results', []):
+            popularity = movie_data.get('popularity', None)
             movie, created = Movie.objects.get_or_create(
                 id=movie_data['id'],
                 defaults={
                 'id': movie_data['id'],
                 'name': movie_data['title'],
-                'price': calculate_price_based_on_popularity(movie_data['popularity']),
+                'price': calculate_price_based_on_popularity(popularity),
                 'description': movie_data['overview'],
                 'image': f"https://image.tmdb.org/t/p/w500{movie_data['poster_path']}" if movie_data['poster_path'] else "https://via.placeholder.com/500x750?text=No+Poster+Available",
                 }

@@ -48,10 +48,9 @@ width: auto;
   object-fit: contain;
 }
 .slogan {
-  font-weight: bold;
-  color: #8e2ff4;
+  color: white;
   font-size: 2.2rem;
-  font-family: 'Dancing Script', cursive;
+  font-family: 'Jost', sans-serif;
 }
 .slogan-black {
   color: black;
