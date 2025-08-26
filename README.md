@@ -1,1 +1,2 @@
 jing's project
+Movie-Store is an open-source application designed to manage and showcase a collection of movies, enabling users to browse, search, and interact with movie-related data. Built with a focus on simplicity and functionality, it provides a user-friendly interface for movie enthusiasts, administrators, or developers to explore or manage movie inventories. Ideal for personal projects, educational purposes, or as a foundation for a larger movie database system.
